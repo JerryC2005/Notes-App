@@ -102,7 +102,7 @@ yargs.command({
     }
 })
 
-//
+//creates edit command
 yargs.command({
     command: 'edit',
     describe: 'Edit will allow the user to edit the note',

@@ -67,19 +67,16 @@ const readNote = (title) => {
 
 const editNote = (title, body) => {
     const notes = loadNotes();
-    let foundNote = notes.find(note => note.title === title)
+    let foundNote = notes.findIndex(note => note.title === title)
 
-    if(foundNote) {
-        const notesToKeep = notes.filter((note) => note.title !== title)
+    if(foundNote !== -1) {
 
-        foundNote = {
+        notes[foundNote] = {
             title: title,
             body: body
         }
         
-        console.log(foundNote)
-        notesToKeep.push(foundNote)
-        saveNotes(notesToKeep)
+        saveNotes(notes)
         
         console.log(greenSuccess('edited file SuccessFully!'))
     }
@@ -89,7 +86,7 @@ const editNote = (title, body) => {
 }
 
 
-
+// saves notes to the JSON
 const saveNotes = (notes) => {
     const dataJson = JSON.stringify(notes);
     fs.writeFileSync('notes.json', dataJson);
@@ -106,6 +103,7 @@ const loadNotes = () => {
     }
 }
 
+// exports functions so that can be used 
 module.exports = {
     getNotes: getNotes,
     addNote: addNote,
